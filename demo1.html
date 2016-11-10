@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>递归算法</title>
+</head>
+<body>
+	<script>
+		// function fact(num){
+		// 	if(num<=1){
+		// 		return 1;
+		// 	}else{
+		// 		return num*arguments.callee(num-1);
+		// 	}
+		// }
+		// var aa = fact;
+		// fact = null;
+		// console.log(aa(4));
+		//阶层递归（每次仅仅递归调用自身一次）
+		function factorial(n){
+			return (n<=1)?1:n*factorial(n-1);
+		}
+		console.log(factorial(4));
+		//斐波那契数列（每次调用过程中会在此调用自身函数两次）
+		function fibonacci(n){
+			return (n<=2)?1:fibonacci(n-1)+fibonacci(n-2);
+		}
+		console.log(fibonacci(5))
+		//使用一下缓存
+		var fibArr = [undefined,1,1];
+		function fibonacci1(n){
+			var nFib = fibArr[n];
+			return nFib ? nFib : (fibArr[n] = fibonacci1(n-1)+fibonacci1(n-2))
+		}
+		// fibArr[5] = f(4)+f(3);
+		// 			fibArr[4]=f(3)+f(2); fibArr[3]=f(2)+f(1);
+		// 						2	1				1	  1
+		console.log(fibonacci1(5));
+		//使用迭代
+		function fibonacci2(n){
+			var x=1,y=1,i=2,t;
+			while(i<n){
+				t=y;
+				y=x+y;
+				x=t;
+				i++
+			}
+			return y;
+		}
+		// f(5)2<5;  t=1;  y=1+1  2; x=1; i=3;
+		// 		  t=2;  y=1+2  3; x=2; i=4;
+		// 		  t=3;  y=2+3  5; x=3; i=5;
+		// 		  t=5;  y=3+5  8; x=5; i=6;
+		console.log(fibonacci2(5));
+	</script>
+</body>
+</html>
